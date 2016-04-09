@@ -13,7 +13,7 @@ public final class DbContract {
         public static final String COLUMN_NAME = "name";
 
         public static String SqlCreate() {
-            return "CREATE TABLE " + TABLE_APPS + " (" + COLUMN_PACKAGE_NAME + " TEXT," + COLUMN_NAME + " TEXT);";
+            return "CREATE TABLE " + TABLE_APPS + " (" + COLUMN_PACKAGE_NAME + " TEXT UNIQUE," + COLUMN_NAME + " TEXT);";
         }
 
         public static String SqlDelete() {

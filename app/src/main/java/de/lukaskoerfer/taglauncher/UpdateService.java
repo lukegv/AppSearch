@@ -1,7 +1,9 @@
 package de.lukaskoerfer.taglauncher;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -22,7 +24,7 @@ public class UpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        UpdateTask Task = new UpdateTask();
+        UpdateTask Task = new ServiceUpdateTask();
         Task.execute();
         return START_STICKY;
     }
@@ -32,35 +34,19 @@ public class UpdateService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private class UpdateTask extends AsyncTask<Void, Void, Void> {
+    private class ServiceUpdateTask extends UpdateTask {
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            Log.d("Tag Launcher", "Started app update");
-            PackageManager packageManager = UpdateService.this.getPackageManager();
-            List<ApplicationInfo> applicationInfos = packageManager.getInstalledApplications(0);
-            List<InstalledApp> installedApps = new ArrayList<>();
-            for (ApplicationInfo appInfo : applicationInfos) {
-                String appName = appInfo.loadLabel(packageManager).toString();
-                installedApps.add(new InstalledApp(appInfo.packageName, appName));
-            }
-            (new DbHelper(UpdateService.this)).updateInstalledApps(installedApps);
-            Log.d("Tag Launcher", "App update done");
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            UpdateService.this.stopSelf();
+        public ServiceUpdateTask() {
+            super(UpdateService.this);
         }
 
         @Override
         protected void onCancelled() {
+            UpdateService.this.stopSelf();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
             UpdateService.this.stopSelf();
         }
     }

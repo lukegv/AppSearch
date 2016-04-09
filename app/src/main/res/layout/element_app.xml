@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
     android:orientation="horizontal" >
 
-    <ImageView
-        android:id="@+id/imgAppLogo"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_margin="5dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/imgAppLogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/pgrLoading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateOnly="true" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvAppName"
-        android:layout_weight="3"
-        android:layout_width="0dp"
-        android:layout_height="match_parent" />
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textSize="20sp" />
 
 </LinearLayout>

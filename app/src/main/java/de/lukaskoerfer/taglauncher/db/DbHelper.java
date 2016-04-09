@@ -25,6 +25,10 @@ public class DbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, 1);
     }
 
+    public static DbHelper Instance(Context context) {
+        return new DbHelper(context);
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DbContract.AppTable.SqlCreate());
@@ -33,7 +37,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        throw new SQLiteException("No upgrade methode implemented");
+        throw new SQLiteException("No upgrade method implemented");
     }
 
     public void updateInstalledApps(List<InstalledApp> apps) {

@@ -3,17 +3,15 @@ package de.lukaskoerfer.taglauncher;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.view.menu.MenuView;
-import android.widget.ImageView;
 
-import java.util.Dictionary;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.Attributes;
 
 import de.lukaskoerfer.taglauncher.model.InstalledApp;
 
@@ -25,26 +23,26 @@ public class IconLoader {
     private Context context;
 
     private Map<String, Drawable> cachedIcons;
-    private Map<String, ImageView> requests;
+    private BiMap<LoadingImage, String> requests;
 
     public IconLoader(Context c) {
         this.context = c;
         this.cachedIcons = new HashMap<>();
-        this.requests = new HashMap<>();
+        this.requests = HashBiMap.create();
     }
 
-    public void requestIcon(String packageName, ImageView imageView) {
+    public void requestIcon(LoadingImage loadingImage, String packageName) {
         if (this.cachedIcons.containsKey(packageName)) {
-            imageView.setImageDrawable(this.cachedIcons.get(packageName));
+            loadingImage.switchToImage(this.cachedIcons.get(packageName));
         } else {
-            requests.put(packageName, imageView);
+            requests.forcePut(loadingImage, packageName);
         }
     }
 
     public void loadIcons(List<InstalledApp> apps) {
         InstalledApp[] appArray = apps.toArray(new InstalledApp[apps.size()]);
         IconLoadTask task = new IconLoadTask();
-        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, appArray);
+        task.execute(appArray);
     }
 
     private class LoadResult {
@@ -76,8 +74,8 @@ public class IconLoader {
         @Override
         protected void onProgressUpdate(LoadResult... results) {
             for (LoadResult result : results) {
-                if (IconLoader.this.requests.containsKey(result.packageName)) {
-                    IconLoader.this.requests.get(result.packageName).setImageDrawable(result.icon);
+                if (IconLoader.this.requests.containsValue(result.packageName)) {
+                    IconLoader.this.requests.inverse().remove(result.packageName).switchToImage(result.icon);
                 }
                 IconLoader.this.cachedIcons.put(result.packageName, result.icon);
             }
