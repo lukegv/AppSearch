@@ -1,20 +1,8 @@
-package de.lukaskoerfer.taglauncher;
+package de.lukaskoerfer.appsearch;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.IBinder;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import de.lukaskoerfer.taglauncher.db.DbHelper;
-import de.lukaskoerfer.taglauncher.model.InstalledApp;
 
 public class UpdateService extends Service {
 

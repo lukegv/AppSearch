@@ -1,4 +1,4 @@
-package de.lukaskoerfer.taglauncher;
+package de.lukaskoerfer.appsearch;
 
 import org.junit.Test;
 

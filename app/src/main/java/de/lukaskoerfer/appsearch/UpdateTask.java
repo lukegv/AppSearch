@@ -1,4 +1,4 @@
-package de.lukaskoerfer.taglauncher;
+package de.lukaskoerfer.appsearch;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -8,8 +8,8 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.lukaskoerfer.taglauncher.db.DbHelper;
-import de.lukaskoerfer.taglauncher.model.InstalledApp;
+import de.lukaskoerfer.appsearch.db.DbHelper;
+import de.lukaskoerfer.appsearch.model.InstalledApp;
 
 /**
  * Created by Koerfer on 09.04.2016.

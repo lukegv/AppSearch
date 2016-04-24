@@ -1,4 +1,4 @@
-package de.lukaskoerfer.taglauncher;
+package de.lukaskoerfer.appsearch.ui;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;

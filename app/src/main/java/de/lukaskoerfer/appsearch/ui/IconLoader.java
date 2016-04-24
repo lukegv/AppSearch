@@ -1,4 +1,4 @@
-package de.lukaskoerfer.taglauncher;
+package de.lukaskoerfer.appsearch.ui;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -13,7 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.lukaskoerfer.taglauncher.model.InstalledApp;
+import de.lukaskoerfer.appsearch.R;
+import de.lukaskoerfer.appsearch.model.InstalledApp;
 
 /**
  * Created by Koerfer on 08.04.2016.
@@ -64,7 +65,7 @@ public class IconLoader {
                 try {
                     icon = IconLoader.this.context.getPackageManager().getApplicationIcon(app.getPackageName());
                 } catch (PackageManager.NameNotFoundException nnfex) {
-                    icon = ContextCompat.getDrawable(IconLoader.this.context, R.mipmap.ic_launcher);
+                    icon = ContextCompat.getDrawable(IconLoader.this.context, R.mipmap.app_icon);
                 }
                 this.publishProgress(new LoadResult(app.getPackageName(), icon));
             }

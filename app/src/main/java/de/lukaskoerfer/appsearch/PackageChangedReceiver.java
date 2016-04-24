@@ -1,10 +1,9 @@
-package de.lukaskoerfer.taglauncher;
+package de.lukaskoerfer.appsearch;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 public class PackageChangedReceiver extends BroadcastReceiver {
 
